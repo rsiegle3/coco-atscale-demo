@@ -38,3 +38,5 @@ bind it. Each `models/*.yml` records its own provenance there.
 validates, refuses to run on uncommitted or unpushed work, then deploys with the catalog name from
 `catalog.yml`. After every deploy: `list_models` and `explore_columns`, one live `run_query` per
 dimension, and `validate_mdx_expression` on every `metric_calc`.
+
+Happy Modeling!
