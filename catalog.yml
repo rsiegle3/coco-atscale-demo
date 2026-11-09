@@ -1,7 +1,7 @@
 unique_name: __CATALOG_NAME__
 object_type: catalog
 label: __CATALOG_LABEL__
-description: "SML semantic models built by an LLM agent (Claude Code + the AtScale MCP) directly from a warehouse schema, with no pre-existing semantic model to copy. No model yet. The agent replaces this sentence with the subject area and the models once they exist."
+description: "SML semantic models built by an LLM agent (Claude Code + the AtScale MCP) directly from a warehouse schema. No model yet. The agent replaces this sentence with the subject area and the models once they exist."
 version: 1.7
 aggressive_agg_promotion: false
 build_speculative_aggs: false
@@ -26,14 +26,19 @@ ai_context:
       __CONNECTION_ID__, database __DATABASE__, schema __SCHEMA__. Do not point the model at any other
       connection. Discover the tables, columns, keys, JSON fields and sample values yourself with the
       AtScale MCP explore_datasource tool (list tables, then column details and sample data) and any
-      native column comments; no catalog, glossary or reference model is available, so every join and
-      every description is authored from what the warehouse shows. A derived (sql:) dataset is not
+      native column comments. A derived (sql:) dataset is not
       resolved against its connection's schema at query time, so qualify every table inside it
       (schema.table), while physical table: datasets take the bare table name. A derived dataset's
       column entries must not carry sql:. Where a column holds a JSON document, read the nested paths
       and expose the fields you model as dataset columns, casting to a numeric type where the value
       is a number. Text-typed numbers (currency, "6 events", "12.5%") need a safe cast, for example
       substring(replace(x, ',', '') from '-?[0-9]+\.?[0-9]*')::float8 on Postgres.
+  - source_type: catalog
+    source: Snowflake Horizon Catalog (database __DATABASE__, schema __SCHEMA__)
+    instruction: >-
+      Use Horizon table and column descriptions, tags, and ownership as the
+      source for model descriptions and business meaning. Where Horizon and
+      the warehouse disagree, flag it rather than choosing one.
   - source_type: other
     source: build and quality rules
     instruction: >-
