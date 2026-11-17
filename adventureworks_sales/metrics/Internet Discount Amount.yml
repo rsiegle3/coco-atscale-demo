@@ -1,0 +1,10 @@
+unique_name: Internet Discount Amount
+object_type: metric
+label: Internet Discount Amount
+description: "Internet discount given off the extended amount on internet order lines."
+dataset: Internet Sales Lines
+column: discountamount
+calculation_method: sum
+ai_context:
+- source_type: catalog
+  source: horizon:atscale_tutorial_data.adventureworks2012.factinternetsales.discountamount

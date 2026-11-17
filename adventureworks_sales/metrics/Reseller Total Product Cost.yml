@@ -1,0 +1,11 @@
+unique_name: Reseller Total Product Cost
+object_type: metric
+label: Reseller Total Product Cost
+description: "Reseller cost of goods sold, standard cost times quantity for reseller lines; the cost side of Reseller Gross\
+  \ Profit."
+dataset: Reseller Sales Lines
+column: totalproductcost
+calculation_method: sum
+ai_context:
+- source_type: catalog
+  source: horizon:atscale_tutorial_data.adventureworks2012.factresellersales.totalproductcost

@@ -1,0 +1,7 @@
+unique_name: Total Sales Amount
+object_type: metric_calc
+label: Total Sales Amount
+description: "Total revenue across both channels, Internet Sales Amount plus Reseller Sales Amount; use for combined company\
+  \ sales."
+expression: IIF(ISEMPTY([Measures].[Internet Sales Amount]), 0, [Measures].[Internet Sales Amount]) + IIF(ISEMPTY([Measures].[Reseller
+  Sales Amount]), 0, [Measures].[Reseller Sales Amount])

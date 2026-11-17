@@ -1,0 +1,80 @@
+unique_name: Reseller Sales Lines
+object_type: dataset
+label: Reseller Sales Lines
+description: "Wholesale sales order lines sold to resellers (bike shops and stores), one row per sales order line; 60855 order\
+  \ lines. Horizon: sales data for products sold to resellers."
+connection_id: AdventureWorks Snowflake Connection
+table: factresellersales
+columns:
+- name: row_count
+  data_type: long
+  sql: '1'
+- name: productkey
+  data_type: long
+- name: orderdatekey
+  data_type: long
+- name: duedatekey
+  data_type: long
+- name: shipdatekey
+  data_type: long
+- name: resellerkey
+  data_type: long
+- name: employeekey
+  data_type: long
+- name: promotionkey
+  data_type: long
+- name: currencykey
+  data_type: long
+- name: salesterritorykey
+  data_type: long
+- name: salesordernumber
+  data_type: string
+- name: salesorderlinenumber
+  data_type: long
+- name: revisionnumber
+  data_type: long
+- name: orderquantity
+  data_type: long
+- name: unitprice
+  data_type: decimal
+- name: extendedamount
+  data_type: decimal
+- name: unitpricediscountpct
+  data_type: decimal
+- name: discountamount
+  data_type: decimal
+- name: productstandardcost
+  data_type: decimal
+- name: totalproductcost
+  data_type: decimal
+- name: salesamount
+  data_type: decimal
+- name: taxamt
+  data_type: decimal
+- name: freight
+  data_type: decimal
+- name: carriertrackingnumber
+  data_type: string
+- name: customerponumber
+  data_type: string
+- name: orderdate
+  data_type: datetime
+- name: duedate
+  data_type: datetime
+- name: shipdate
+  data_type: datetime
+ai_context:
+- source_type: catalog
+  source: horizon:atscale_tutorial_data.adventureworks2012.factresellersales
+- role: check
+  unique:
+  - salesordernumber
+  - salesorderlinenumber
+  not_null:
+  - salesordernumber
+  - salesorderlinenumber
+  - productkey
+  - orderdatekey
+- role: pin
+  text: "{n} order lines"
+  sql: SELECT count(*) FROM "adventureworks2012"."factresellersales"

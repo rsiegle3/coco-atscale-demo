@@ -1,0 +1,11 @@
+unique_name: Internet Total Product Cost
+object_type: metric
+label: Internet Total Product Cost
+description: "Internet cost of goods sold, standard cost times quantity for internet lines; the cost side of Internet Gross\
+  \ Profit."
+dataset: Internet Sales Lines
+column: totalproductcost
+calculation_method: sum
+ai_context:
+- source_type: catalog
+  source: horizon:atscale_tutorial_data.adventureworks2012.factinternetsales.totalproductcost

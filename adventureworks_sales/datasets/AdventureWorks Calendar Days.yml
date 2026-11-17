@@ -1,0 +1,68 @@
+unique_name: AdventureWorks Calendar Days
+object_type: dataset
+label: AdventureWorks Calendar Days
+description: "Calendar day table from datecustom, one row per day from 2000-01-01 to 2025-12-31; 9497 days."
+connection_id: AdventureWorks Snowflake Connection
+table: datecustom
+columns:
+- name: pk_date
+  data_type: datetime
+- name: datekey
+  data_type: long
+- name: date_name
+  data_type: string
+- name: year
+  data_type: datetime
+- name: year_name
+  data_type: string
+- name: half_year
+  data_type: datetime
+- name: half_year_name
+  data_type: string
+- name: quarter
+  data_type: datetime
+- name: quarter_name
+  data_type: string
+- name: month
+  data_type: datetime
+- name: month_name
+  data_type: string
+- name: week
+  data_type: datetime
+- name: week_name
+  data_type: string
+- name: day_of_year
+  data_type: long
+- name: day_of_month
+  data_type: long
+- name: day_of_week
+  data_type: long
+- name: week_of_year
+  data_type: long
+- name: month_of_year
+  data_type: long
+- name: quarter_of_year
+  data_type: long
+- name: half_year_of_year
+  data_type: long
+ai_context:
+- source_type: catalog
+  source: horizon:atscale_tutorial_data.adventureworks2012.datecustom
+- role: check
+  unique:
+  - datekey
+  not_null:
+  - datekey
+  - pk_date
+  - year
+  - quarter
+  - month
+  - week
+- role: pin
+  text: "{n} days"
+  sql: SELECT count(*) FROM "adventureworks2012"."datecustom"
+- notes:
+  - Only the Gregorian calendar columns are modeled. The reporting_*, iso_8601_* and *_lykey/_ctl columns (alternate retail
+    and ISO calendars, many without Horizon comments) and the *_name variants of day/month/quarter-of-period are omitted.
+  - Horizon describes month_of_year_name and day_of_week_name as names, but the warehouse stores 'Month 7' and 'Day 6', so
+    they were not modeled; the numeric columns are used instead.

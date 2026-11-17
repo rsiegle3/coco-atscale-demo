@@ -1,0 +1,72 @@
+unique_name: AdventureWorks Customers
+object_type: dataset
+label: AdventureWorks Customers
+description: "Internet customers joined to their home geography, one row per customer key; 18484 customers."
+connection_id: AdventureWorks Snowflake Connection
+sql: SELECT x."customerkey", x."customeralternatekey", x."firstname" || ' ' || x."lastname" AS "customername", x."gender",
+  x."maritalstatus", x."birthdate", x."yearlyincome", x."totalchildren", x."numberchildrenathome", x."englisheducation", x."englishoccupation",
+  x."houseownerflag", x."numbercarsowned", x."commutedistance", x."datefirstpurchase", g."city", g."stateprovincecode", g."stateprovincename",
+  g."countryregioncode", g."englishcountryregionname", g."postalcode" FROM "adventureworks2012"."dimcustomer" x JOIN "adventureworks2012"."dimgeography"
+  g ON x."geographykey" = g."geographykey"
+columns:
+- name: customerkey
+  data_type: long
+- name: customeralternatekey
+  data_type: string
+- name: customername
+  data_type: string
+- name: gender
+  data_type: string
+- name: maritalstatus
+  data_type: string
+- name: birthdate
+  data_type: date
+- name: yearlyincome
+  data_type: double
+- name: totalchildren
+  data_type: long
+- name: numberchildrenathome
+  data_type: long
+- name: englisheducation
+  data_type: string
+- name: englishoccupation
+  data_type: string
+- name: houseownerflag
+  data_type: long
+- name: numbercarsowned
+  data_type: long
+- name: commutedistance
+  data_type: string
+- name: datefirstpurchase
+  data_type: date
+- name: city
+  data_type: string
+- name: stateprovincecode
+  data_type: string
+- name: stateprovincename
+  data_type: string
+- name: countryregioncode
+  data_type: string
+- name: englishcountryregionname
+  data_type: string
+- name: postalcode
+  data_type: string
+ai_context:
+- source_type: catalog
+  source: horizon:atscale_tutorial_data.adventureworks2012.dimcustomer
+- source_type: catalog
+  source: horizon:atscale_tutorial_data.adventureworks2012.dimgeography
+- role: check
+  unique:
+  - customerkey
+  not_null:
+  - customerkey
+  - city
+  - countryregioncode
+- role: pin
+  text: "{n} customers"
+  sql: SELECT count(*) FROM "adventureworks2012"."dimcustomer"
+- notes:
+  - 'Omitted as personal contact data: title, middle name, suffix, name style, email, phone, address lines. Spanish/French
+    education and occupation omitted (English kept).'
+  - All 18484 customers match a geography row (inner join loses none).

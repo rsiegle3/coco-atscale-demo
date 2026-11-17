@@ -1,0 +1,38 @@
+unique_name: Currency
+object_type: dimension
+label: Currency
+type: standard
+description: "Currency the sale was transacted in; amounts are not converted between currencies."
+level_attributes:
+- unique_name: Currency Name
+  label: Currency Name
+  description: "Transaction currency name, e.g. US Dollar, Euro, Australian Dollar."
+  dataset: AdventureWorks Currencies
+  key_columns:
+  - currencykey
+  name_column: currencyname
+  is_unique_key: true
+  ai_context:
+  - source_type: catalog
+    source: horizon:atscale_tutorial_data.adventureworks2012.dimcurrency.currencyname
+hierarchies:
+- unique_name: Currency Hierarchy
+  label: Currency Hierarchy
+  filter_empty: 'yes'
+  folder: Currency
+  levels:
+  - unique_name: Currency Name
+    secondary_attributes:
+    - unique_name: Currency Code
+      label: Currency Code
+      description: "ISO 4217 currency code such as USD, EUR, GBP."
+      dataset: AdventureWorks Currencies
+      name_column: currencyalternatekey
+      key_columns:
+      - currencyalternatekey
+      ai_context:
+      - source_type: catalog
+        source: horizon:atscale_tutorial_data.adventureworks2012.dimcurrency.currencyalternatekey
+ai_context:
+- source_type: catalog
+  source: horizon:atscale_tutorial_data.adventureworks2012.dimcurrency

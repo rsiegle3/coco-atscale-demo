@@ -1,0 +1,7 @@
+unique_name: Reseller Gross Margin Pct
+object_type: metric_calc
+label: Reseller Gross Margin Pct
+description: "Reseller gross margin percent: Reseller Gross Profit divided by Reseller Sales Amount, as a fraction; ratio\
+  \ of totals, not an average of line margins."
+expression: IIF([Measures].[Reseller Sales Amount] = 0, NULL, [Measures].[Reseller Gross Profit] / [Measures].[Reseller Sales
+  Amount])

@@ -1,0 +1,11 @@
+unique_name: Internet Sales Amount
+object_type: metric
+label: Internet Sales Amount
+description: "Internet revenue, net sales after discount, before tax and freight, for orders sold to online customers; unlike\
+  \ Reseller Sales Amount and Total Sales Amount."
+dataset: Internet Sales Lines
+column: salesamount
+calculation_method: sum
+ai_context:
+- source_type: catalog
+  source: horizon:atscale_tutorial_data.adventureworks2012.factinternetsales.salesamount

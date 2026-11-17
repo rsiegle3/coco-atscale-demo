@@ -1,0 +1,33 @@
+unique_name: AdventureWorks Sales Territories
+object_type: dataset
+label: AdventureWorks Sales Territories
+description: "Sales territory regions with their country and group; 11 territories including an NA placeholder row."
+connection_id: AdventureWorks Snowflake Connection
+table: dimsalesterritory
+columns:
+- name: salesterritorykey
+  data_type: long
+- name: salesterritoryalternatekey
+  data_type: long
+- name: salesterritoryregion
+  data_type: string
+- name: salesterritorycountry
+  data_type: string
+- name: salesterritorygroup
+  data_type: string
+- name: salesterritoryimage
+  data_type: string
+ai_context:
+- source_type: catalog
+  source: horizon:atscale_tutorial_data.adventureworks2012.dimsalesterritory
+- role: check
+  unique:
+  - salesterritorykey
+  not_null:
+  - salesterritorykey
+  - salesterritoryregion
+- role: pin
+  text: "{n} territories"
+  sql: SELECT count(*) FROM "adventureworks2012"."dimsalesterritory"
+- notes:
+  - salesterritoryimage holds the string System.Byte[] and is not modeled as an attribute.

@@ -1,0 +1,7 @@
+unique_name: Internet Order Line Count
+object_type: metric
+label: Internet Order Line Count
+description: "Number of internet sales order lines, one per product on an order; unlike Internet Order Count."
+dataset: Internet Sales Lines
+column: row_count
+calculation_method: sum

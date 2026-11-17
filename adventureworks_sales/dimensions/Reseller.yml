@@ -1,0 +1,187 @@
+unique_name: Reseller
+object_type: dimension
+label: Reseller
+type: standard
+description: "Reseller businesses (bike shops, stores, warehouses) with their geography; applies to reseller sales only."
+level_attributes:
+- unique_name: Reseller Country
+  label: Reseller Country
+  description: "Reseller country or region in English, e.g. United States, Australia; from the reseller address, unlike Sales\
+    \ Territory Country."
+  dataset: AdventureWorks Resellers
+  key_columns:
+  - countryregioncode
+  name_column: englishcountryregionname
+  ai_context:
+  - source_type: catalog
+    source: horizon:atscale_tutorial_data.adventureworks2012.dimgeography.englishcountryregionname
+- unique_name: Reseller State Province
+  label: Reseller State Province
+  description: "Reseller state or province, e.g. California, New South Wales."
+  dataset: AdventureWorks Resellers
+  key_columns:
+  - countryregioncode
+  - stateprovincecode
+  name_column: stateprovincename
+  ai_context:
+  - source_type: catalog
+    source: horizon:atscale_tutorial_data.adventureworks2012.dimgeography.stateprovincename
+- unique_name: Reseller City
+  label: Reseller City
+  description: "Reseller city, e.g. Seattle, Paris; keyed with state and country so same-named cities stay distinct."
+  dataset: AdventureWorks Resellers
+  key_columns:
+  - countryregioncode
+  - stateprovincecode
+  - city
+  name_column: city
+  ai_context:
+  - source_type: catalog
+    source: horizon:atscale_tutorial_data.adventureworks2012.dimgeography.city
+- unique_name: Reseller Name
+  label: Reseller Name
+  description: "Reseller business name, e.g. A Bike Store; names can repeat, the level is keyed on reseller key."
+  dataset: AdventureWorks Resellers
+  key_columns:
+  - resellerkey
+  name_column: resellername
+  is_unique_key: true
+  ai_context:
+  - source_type: catalog
+    source: horizon:atscale_tutorial_data.adventureworks2012.dimreseller.resellername
+hierarchies:
+- unique_name: Reseller Geography Hierarchy
+  label: Reseller Geography Hierarchy
+  filter_empty: 'yes'
+  folder: Reseller
+  levels:
+  - unique_name: Reseller Country
+  - unique_name: Reseller State Province
+  - unique_name: Reseller City
+  - unique_name: Reseller Name
+    secondary_attributes:
+    - unique_name: Reseller Number
+      label: Reseller Number
+      description: "Reseller account number / alternate key such as AW00000001."
+      dataset: AdventureWorks Resellers
+      name_column: reselleralternatekey
+      key_columns:
+      - reselleralternatekey
+      ai_context:
+      - source_type: catalog
+        source: horizon:atscale_tutorial_data.adventureworks2012.dimreseller.reselleralternatekey
+    - unique_name: Reseller Business Type
+      label: Reseller Business Type
+      description: "Reseller business type: Value Added Reseller, Specialty Bike Shop, Warehouse."
+      dataset: AdventureWorks Resellers
+      name_column: businesstype
+      key_columns:
+      - businesstype
+      ai_context:
+      - source_type: catalog
+        source: horizon:atscale_tutorial_data.adventureworks2012.dimreseller.businesstype
+    - unique_name: Reseller Order Frequency
+      label: Reseller Order Frequency
+      description: "Reseller ordering frequency code A annual, S semiannual, Q quarterly."
+      dataset: AdventureWorks Resellers
+      name_column: orderfrequency
+      key_columns:
+      - orderfrequency
+      ai_context:
+      - source_type: catalog
+        source: horizon:atscale_tutorial_data.adventureworks2012.dimreseller.orderfrequency
+    - unique_name: Reseller Product Line
+      label: Reseller Product Line
+      description: "Main product line the reseller carries, e.g. Road, Mountain; unlike Product Line on the product."
+      dataset: AdventureWorks Resellers
+      name_column: productline
+      key_columns:
+      - productline
+      ai_context:
+      - source_type: catalog
+        source: horizon:atscale_tutorial_data.adventureworks2012.dimreseller.productline
+    - unique_name: Reseller Number Of Employees
+      label: Reseller Number Of Employees
+      description: "Number of employees at the reseller."
+      dataset: AdventureWorks Resellers
+      name_column: numberemployees
+      key_columns:
+      - numberemployees
+      ai_context:
+      - source_type: catalog
+        source: horizon:atscale_tutorial_data.adventureworks2012.dimreseller.numberemployees
+    - unique_name: Reseller Annual Sales
+      label: Reseller Annual Sales
+      description: "Reseller's own reported annual sales; profile attribute, not Reseller Sales Amount."
+      dataset: AdventureWorks Resellers
+      name_column: annualsales
+      key_columns:
+      - annualsales
+      ai_context:
+      - source_type: catalog
+        source: horizon:atscale_tutorial_data.adventureworks2012.dimreseller.annualsales
+    - unique_name: Reseller Annual Revenue
+      label: Reseller Annual Revenue
+      description: "Reseller's own reported annual revenue; profile attribute, not a sales measure."
+      dataset: AdventureWorks Resellers
+      name_column: annualrevenue
+      key_columns:
+      - annualrevenue
+      ai_context:
+      - source_type: catalog
+        source: horizon:atscale_tutorial_data.adventureworks2012.dimreseller.annualrevenue
+    - unique_name: Reseller Year Opened
+      label: Reseller Year Opened
+      description: "Year the reseller business opened."
+      dataset: AdventureWorks Resellers
+      name_column: yearopened
+      key_columns:
+      - yearopened
+      ai_context:
+      - source_type: catalog
+        source: horizon:atscale_tutorial_data.adventureworks2012.dimreseller.yearopened
+    - unique_name: Reseller First Order Year
+      label: Reseller First Order Year
+      description: "Year of the reseller's first order."
+      dataset: AdventureWorks Resellers
+      name_column: firstorderyear
+      key_columns:
+      - firstorderyear
+      ai_context:
+      - source_type: catalog
+        source: horizon:atscale_tutorial_data.adventureworks2012.dimreseller.firstorderyear
+    - unique_name: Reseller Last Order Year
+      label: Reseller Last Order Year
+      description: "Year of the reseller's most recent order."
+      dataset: AdventureWorks Resellers
+      name_column: lastorderyear
+      key_columns:
+      - lastorderyear
+      ai_context:
+      - source_type: catalog
+        source: horizon:atscale_tutorial_data.adventureworks2012.dimreseller.lastorderyear
+    - unique_name: Reseller Bank Name
+      label: Reseller Bank Name
+      description: "Name of the reseller's bank."
+      dataset: AdventureWorks Resellers
+      name_column: bankname
+      key_columns:
+      - bankname
+      ai_context:
+      - source_type: catalog
+        source: horizon:atscale_tutorial_data.adventureworks2012.dimreseller.bankname
+    - unique_name: Reseller Postal Code
+      label: Reseller Postal Code
+      description: "Reseller postal or ZIP code."
+      dataset: AdventureWorks Resellers
+      name_column: postalcode
+      key_columns:
+      - postalcode
+      ai_context:
+      - source_type: catalog
+        source: horizon:atscale_tutorial_data.adventureworks2012.dimgeography.postalcode
+ai_context:
+- source_type: catalog
+  source: horizon:atscale_tutorial_data.adventureworks2012.dimreseller
+- source_type: catalog
+  source: horizon:atscale_tutorial_data.adventureworks2012.dimgeography

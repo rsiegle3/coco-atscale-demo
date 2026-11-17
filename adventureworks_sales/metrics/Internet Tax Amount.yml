@@ -1,0 +1,10 @@
+unique_name: Internet Tax Amount
+object_type: metric
+label: Internet Tax Amount
+description: "Internet sales tax charged on internet orders; excluded from Internet Sales Amount."
+dataset: Internet Sales Lines
+column: taxamt
+calculation_method: sum
+ai_context:
+- source_type: catalog
+  source: horizon:atscale_tutorial_data.adventureworks2012.factinternetsales.taxamt

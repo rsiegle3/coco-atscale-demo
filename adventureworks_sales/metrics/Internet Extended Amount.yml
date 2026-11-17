@@ -1,0 +1,11 @@
+unique_name: Internet Extended Amount
+object_type: metric
+label: Internet Extended Amount
+description: "Internet gross amount before discount, unit price times quantity; unlike Internet Sales Amount which is after\
+  \ discount."
+dataset: Internet Sales Lines
+column: extendedamount
+calculation_method: sum
+ai_context:
+- source_type: catalog
+  source: horizon:atscale_tutorial_data.adventureworks2012.factinternetsales.extendedamount

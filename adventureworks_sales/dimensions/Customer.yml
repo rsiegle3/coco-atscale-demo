@@ -1,0 +1,211 @@
+unique_name: Customer
+object_type: dimension
+label: Customer
+type: standard
+description: "Internet (direct online) customers with demographics and home geography; does not apply to reseller sales."
+level_attributes:
+- unique_name: Customer Country
+  label: Customer Country
+  description: "Customer country or region in English, e.g. United States, Australia; from the customer address, unlike Sales\
+    \ Territory Country."
+  dataset: AdventureWorks Customers
+  key_columns:
+  - countryregioncode
+  name_column: englishcountryregionname
+  ai_context:
+  - source_type: catalog
+    source: horizon:atscale_tutorial_data.adventureworks2012.dimgeography.englishcountryregionname
+- unique_name: Customer State Province
+  label: Customer State Province
+  description: "Customer state or province, e.g. California, New South Wales."
+  dataset: AdventureWorks Customers
+  key_columns:
+  - countryregioncode
+  - stateprovincecode
+  name_column: stateprovincename
+  ai_context:
+  - source_type: catalog
+    source: horizon:atscale_tutorial_data.adventureworks2012.dimgeography.stateprovincename
+- unique_name: Customer City
+  label: Customer City
+  description: "Customer city, e.g. Seattle, Paris; keyed with state and country so same-named cities stay distinct."
+  dataset: AdventureWorks Customers
+  key_columns:
+  - countryregioncode
+  - stateprovincecode
+  - city
+  name_column: city
+  ai_context:
+  - source_type: catalog
+    source: horizon:atscale_tutorial_data.adventureworks2012.dimgeography.city
+- unique_name: Customer Name
+  label: Customer Name
+  description: "Individual internet customer by first and last name; names can repeat, the level is keyed on customer key."
+  dataset: AdventureWorks Customers
+  key_columns:
+  - customerkey
+  name_column: customername
+  is_unique_key: true
+  ai_context:
+  - source_type: catalog
+    source: horizon:atscale_tutorial_data.adventureworks2012.dimcustomer.firstname
+  - source_type: catalog
+    source: horizon:atscale_tutorial_data.adventureworks2012.dimcustomer.lastname
+hierarchies:
+- unique_name: Customer Geography Hierarchy
+  label: Customer Geography Hierarchy
+  filter_empty: 'yes'
+  folder: Customer
+  levels:
+  - unique_name: Customer Country
+  - unique_name: Customer State Province
+  - unique_name: Customer City
+  - unique_name: Customer Name
+    secondary_attributes:
+    - unique_name: Customer Number
+      label: Customer Number
+      description: "Customer account number / alternate key such as AW00011000."
+      dataset: AdventureWorks Customers
+      name_column: customeralternatekey
+      key_columns:
+      - customeralternatekey
+      ai_context:
+      - source_type: catalog
+        source: horizon:atscale_tutorial_data.adventureworks2012.dimcustomer.customeralternatekey
+    - unique_name: Customer Gender
+      label: Customer Gender
+      description: "Customer gender, M or F."
+      dataset: AdventureWorks Customers
+      name_column: gender
+      key_columns:
+      - gender
+      ai_context:
+      - source_type: catalog
+        source: horizon:atscale_tutorial_data.adventureworks2012.dimcustomer.gender
+    - unique_name: Customer Marital Status
+      label: Customer Marital Status
+      description: "Customer marital status, M married or S single."
+      dataset: AdventureWorks Customers
+      name_column: maritalstatus
+      key_columns:
+      - maritalstatus
+      ai_context:
+      - source_type: catalog
+        source: horizon:atscale_tutorial_data.adventureworks2012.dimcustomer.maritalstatus
+    - unique_name: Customer Education
+      label: Customer Education
+      description: "Customer education level in English, e.g. Bachelors, High School."
+      dataset: AdventureWorks Customers
+      name_column: englisheducation
+      key_columns:
+      - englisheducation
+      ai_context:
+      - source_type: catalog
+        source: horizon:atscale_tutorial_data.adventureworks2012.dimcustomer.englisheducation
+    - unique_name: Customer Occupation
+      label: Customer Occupation
+      description: "Customer occupation in English, e.g. Professional, Skilled Manual."
+      dataset: AdventureWorks Customers
+      name_column: englishoccupation
+      key_columns:
+      - englishoccupation
+      ai_context:
+      - source_type: catalog
+        source: horizon:atscale_tutorial_data.adventureworks2012.dimcustomer.englishoccupation
+    - unique_name: Customer Commute Distance
+      label: Customer Commute Distance
+      description: "Customer commute distance band, e.g. 0-1 Miles, 10+ Miles."
+      dataset: AdventureWorks Customers
+      name_column: commutedistance
+      key_columns:
+      - commutedistance
+      ai_context:
+      - source_type: catalog
+        source: horizon:atscale_tutorial_data.adventureworks2012.dimcustomer.commutedistance
+    - unique_name: Customer Yearly Income
+      label: Customer Yearly Income
+      description: "Customer annual household income in US dollars; demographic attribute, not a sales amount."
+      dataset: AdventureWorks Customers
+      name_column: yearlyincome
+      key_columns:
+      - yearlyincome
+      ai_context:
+      - source_type: catalog
+        source: horizon:atscale_tutorial_data.adventureworks2012.dimcustomer.yearlyincome
+    - unique_name: Customer Total Children
+      label: Customer Total Children
+      description: "Total number of children the customer has."
+      dataset: AdventureWorks Customers
+      name_column: totalchildren
+      key_columns:
+      - totalchildren
+      ai_context:
+      - source_type: catalog
+        source: horizon:atscale_tutorial_data.adventureworks2012.dimcustomer.totalchildren
+    - unique_name: Customer Children At Home
+      label: Customer Children At Home
+      description: "Number of the customer's children living at home; subset of Customer Total Children."
+      dataset: AdventureWorks Customers
+      name_column: numberchildrenathome
+      key_columns:
+      - numberchildrenathome
+      ai_context:
+      - source_type: catalog
+        source: horizon:atscale_tutorial_data.adventureworks2012.dimcustomer.numberchildrenathome
+    - unique_name: Customer Cars Owned
+      label: Customer Cars Owned
+      description: "Number of cars the customer owns."
+      dataset: AdventureWorks Customers
+      name_column: numbercarsowned
+      key_columns:
+      - numbercarsowned
+      ai_context:
+      - source_type: catalog
+        source: horizon:atscale_tutorial_data.adventureworks2012.dimcustomer.numbercarsowned
+    - unique_name: Customer House Owner Flag
+      label: Customer House Owner Flag
+      description: "Home ownership flag, 1 owns a house, 0 does not."
+      dataset: AdventureWorks Customers
+      name_column: houseownerflag
+      key_columns:
+      - houseownerflag
+      ai_context:
+      - source_type: catalog
+        source: horizon:atscale_tutorial_data.adventureworks2012.dimcustomer.houseownerflag
+    - unique_name: Customer Birth Date
+      label: Customer Birth Date
+      description: "Customer date of birth."
+      dataset: AdventureWorks Customers
+      name_column: birthdate
+      key_columns:
+      - birthdate
+      ai_context:
+      - source_type: catalog
+        source: horizon:atscale_tutorial_data.adventureworks2012.dimcustomer.birthdate
+    - unique_name: Customer First Purchase Date
+      label: Customer First Purchase Date
+      description: "Date of the customer's first purchase."
+      dataset: AdventureWorks Customers
+      name_column: datefirstpurchase
+      key_columns:
+      - datefirstpurchase
+      ai_context:
+      - source_type: catalog
+        source: horizon:atscale_tutorial_data.adventureworks2012.dimcustomer.datefirstpurchase
+    - unique_name: Customer Postal Code
+      label: Customer Postal Code
+      description: "Customer postal or ZIP code."
+      dataset: AdventureWorks Customers
+      name_column: postalcode
+      key_columns:
+      - postalcode
+      ai_context:
+      - source_type: catalog
+        source: horizon:atscale_tutorial_data.adventureworks2012.dimgeography.postalcode
+ai_context:
+- source_type: catalog
+  source: horizon:atscale_tutorial_data.adventureworks2012.dimcustomer
+- source_type: catalog
+  source: horizon:atscale_tutorial_data.adventureworks2012.dimgeography
+- notes:
+  - Customer geography is the customer's home address; Sales Territory is the territory recorded on the sale.

@@ -1,0 +1,11 @@
+unique_name: Reseller Order Count
+object_type: metric
+label: Reseller Order Count
+description: "Number of reseller sales orders, distinct sales order numbers; unlike Reseller Order Line Count which counts\
+  \ lines."
+dataset: Reseller Sales Lines
+column: salesordernumber
+calculation_method: count distinct
+ai_context:
+- source_type: catalog
+  source: horizon:atscale_tutorial_data.adventureworks2012.factresellersales.salesordernumber

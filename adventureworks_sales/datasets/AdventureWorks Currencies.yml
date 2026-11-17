@@ -1,0 +1,25 @@
+unique_name: AdventureWorks Currencies
+object_type: dataset
+label: AdventureWorks Currencies
+description: "ISO currencies, one row per currency key; 105 currencies, of which 7 appear on sales."
+connection_id: AdventureWorks Snowflake Connection
+table: dimcurrency
+columns:
+- name: currencykey
+  data_type: long
+- name: currencyalternatekey
+  data_type: string
+- name: currencyname
+  data_type: string
+ai_context:
+- source_type: catalog
+  source: horizon:atscale_tutorial_data.adventureworks2012.dimcurrency
+- role: check
+  unique:
+  - currencykey
+  not_null:
+  - currencykey
+  - currencyname
+- role: pin
+  text: "{n} currencies"
+  sql: SELECT count(*) FROM "adventureworks2012"."dimcurrency"

@@ -1,0 +1,9 @@
+unique_name: AdventureWorks Snowflake Connection
+object_type: connection
+label: AdventureWorks Snowflake Connection
+as_connection: Snowflake
+database: atscale_tutorial_data
+schema: adventureworks2012
+ai_context:
+- notes:
+  - AtScale connectionId Snowflake; tables and columns are lowercase quoted identifiers in Snowflake.

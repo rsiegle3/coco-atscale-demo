@@ -1,0 +1,180 @@
+unique_name: Sales Calendar
+object_type: dimension
+label: Sales Calendar
+type: time
+description: "Gregorian calendar for AdventureWorks sales, role-played as Order, Ship and Due date."
+level_attributes:
+- unique_name: Calendar Year
+  label: Calendar Year
+  description: "Calendar year of the sale, e.g. Calendar 2007; Order, Ship or Due role decides which date is bucketed."
+  dataset: AdventureWorks Calendar Days
+  key_columns:
+  - year
+  name_column: year_name
+  time_unit: year
+  sort_column: year
+- unique_name: Calendar Quarter
+  label: Calendar Quarter
+  description: "Calendar quarter, e.g. Quarter 3, 2005; quarter within a specific year, unlike Quarter Of Year."
+  dataset: AdventureWorks Calendar Days
+  key_columns:
+  - quarter
+  name_column: quarter_name
+  time_unit: quarter
+  sort_column: quarter
+- unique_name: Calendar Month
+  label: Calendar Month
+  description: "Calendar month, e.g. July 2005; month within a specific year, unlike Month Of Year."
+  dataset: AdventureWorks Calendar Days
+  key_columns:
+  - month
+  name_column: month_name
+  time_unit: month
+  sort_column: month
+- unique_name: Calendar Date
+  label: Calendar Date
+  description: "Calendar day, e.g. Friday, July 01 2005; the yyyymmdd datekey the sales facts join on."
+  dataset: AdventureWorks Calendar Days
+  key_columns:
+  - datekey
+  name_column: date_name
+  time_unit: day
+  sort_column: pk_date
+  is_unique_key: true
+- unique_name: Calendar Week Year
+  label: Calendar Week Year
+  description: "Calendar year at the top of the week hierarchy; same years as Calendar Year, used to roll weeks up."
+  dataset: AdventureWorks Calendar Days
+  key_columns:
+  - year
+  name_column: year_name
+  time_unit: year
+  sort_column: year
+- unique_name: Calendar Week
+  label: Calendar Week
+  description: "Calendar week starting on its week start date; use for weekly trends instead of Calendar Month."
+  dataset: AdventureWorks Calendar Days
+  key_columns:
+  - week
+  name_column: week_name
+  time_unit: week
+  sort_column: week
+hierarchies:
+- unique_name: Calendar Month Hierarchy
+  label: Calendar Month Hierarchy
+  filter_empty: 'yes'
+  folder: Sales Calendar
+  levels:
+  - unique_name: Calendar Year
+  - unique_name: Calendar Quarter
+    secondary_attributes:
+    - unique_name: Calendar Quarter Of Year
+      label: Calendar Quarter Of Year
+      description: "Quarter number 1-4 regardless of year, for seasonality; unlike Calendar Quarter which is year-specific."
+      dataset: AdventureWorks Calendar Days
+      name_column: quarter_of_year
+      key_columns:
+      - quarter_of_year
+      ai_context:
+      - source_type: catalog
+        source: horizon:atscale_tutorial_data.adventureworks2012.datecustom.quarter_of_year
+    - unique_name: Calendar Half Year
+      label: Calendar Half Year
+      description: "Semester of the year, e.g. Semester 2, 2005; half-year within a specific year."
+      dataset: AdventureWorks Calendar Days
+      name_column: half_year_name
+      key_columns:
+      - half_year_name
+      sort_column: half_year
+      ai_context:
+      - source_type: catalog
+        source: horizon:atscale_tutorial_data.adventureworks2012.datecustom.half_year_name
+    - unique_name: Calendar Half Year Of Year
+      label: Calendar Half Year Of Year
+      description: "Half-year number 1 or 2 regardless of year; unlike Calendar Half Year which is year-specific."
+      dataset: AdventureWorks Calendar Days
+      name_column: half_year_of_year
+      key_columns:
+      - half_year_of_year
+      ai_context:
+      - source_type: catalog
+        source: horizon:atscale_tutorial_data.adventureworks2012.datecustom.half_year_of_year
+  - unique_name: Calendar Month
+    secondary_attributes:
+    - unique_name: Calendar Month Of Year
+      label: Calendar Month Of Year
+      description: "Month number 1-12 regardless of year, for seasonality; unlike Calendar Month which is year-specific."
+      dataset: AdventureWorks Calendar Days
+      name_column: month_of_year
+      key_columns:
+      - month_of_year
+      ai_context:
+      - source_type: catalog
+        source: horizon:atscale_tutorial_data.adventureworks2012.datecustom.month_of_year
+  - unique_name: Calendar Date
+    secondary_attributes:
+    - unique_name: Calendar Day Of Week
+      label: Calendar Day Of Week
+      description: "Day of week number 1-7 (1 = Sunday, verified on 2005-07-01 = 6, a Friday)."
+      dataset: AdventureWorks Calendar Days
+      name_column: day_of_week
+      key_columns:
+      - day_of_week
+      ai_context:
+      - source_type: catalog
+        source: horizon:atscale_tutorial_data.adventureworks2012.datecustom.day_of_week
+    - unique_name: Calendar Day Of Month
+      label: Calendar Day Of Month
+      description: "Day number within the month, 1-31."
+      dataset: AdventureWorks Calendar Days
+      name_column: day_of_month
+      key_columns:
+      - day_of_month
+      ai_context:
+      - source_type: catalog
+        source: horizon:atscale_tutorial_data.adventureworks2012.datecustom.day_of_month
+    - unique_name: Calendar Day Of Year
+      label: Calendar Day Of Year
+      description: "Day number within the year, 1-366."
+      dataset: AdventureWorks Calendar Days
+      name_column: day_of_year
+      key_columns:
+      - day_of_year
+      ai_context:
+      - source_type: catalog
+        source: horizon:atscale_tutorial_data.adventureworks2012.datecustom.day_of_year
+    - unique_name: Calendar Day Date
+      label: Calendar Day Date
+      description: "Calendar date as a date-time value, for date-range filters on the day."
+      dataset: AdventureWorks Calendar Days
+      name_column: pk_date
+      key_columns:
+      - pk_date
+      ai_context:
+      - source_type: catalog
+        source: horizon:atscale_tutorial_data.adventureworks2012.datecustom.pk_date
+- unique_name: Calendar Week Hierarchy
+  label: Calendar Week Hierarchy
+  filter_empty: 'yes'
+  folder: Sales Calendar
+  levels:
+  - unique_name: Calendar Week Year
+  - unique_name: Calendar Week
+    secondary_attributes:
+    - unique_name: Calendar Week Of Year
+      label: Calendar Week Of Year
+      description: "Week number within the year regardless of year, for weekly seasonality."
+      dataset: AdventureWorks Calendar Days
+      name_column: week_of_year
+      key_columns:
+      - week_of_year
+      ai_context:
+      - source_type: catalog
+        source: horizon:atscale_tutorial_data.adventureworks2012.datecustom.week_of_year
+  - unique_name: Calendar Date
+ai_context:
+- source_type: catalog
+  source: horizon:atscale_tutorial_data.adventureworks2012.datecustom
+- notes:
+  - Physical warehouse calendar (datecustom) used instead of a generated spine; it covers 2000-2025, beyond the sales range
+    2005-07-01 to 2008-08-12 (max due date).

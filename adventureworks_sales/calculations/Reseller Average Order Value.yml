@@ -1,0 +1,7 @@
+unique_name: Reseller Average Order Value
+object_type: metric_calc
+label: Reseller Average Order Value
+description: "Reseller average order value, AOV: Reseller Sales Amount divided by Reseller Order Count; unlike Internet Average\
+  \ Order Value."
+expression: IIF([Measures].[Reseller Order Count] = 0, NULL, [Measures].[Reseller Sales Amount] / [Measures].[Reseller Order
+  Count])

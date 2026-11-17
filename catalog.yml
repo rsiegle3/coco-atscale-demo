@@ -1,7 +1,7 @@
-unique_name: __CATALOG_NAME__
+unique_name: coco_atscale_demo
 object_type: catalog
-label: __CATALOG_LABEL__
-description: "SML semantic models built by an LLM agent (Claude Code + the AtScale MCP) directly from a warehouse schema. No model yet. The agent replaces this sentence with the subject area and the models once they exist."
+label: CoCo AtScale Demo
+description: "SML semantic models built by an LLM agent (CoCo + the AtScale MCP) directly from a warehouse schema. Subject area: AdventureWorks bicycle company sales from Snowflake atscale_tutorial_data.adventureworks2012. Models: AdventureWorks Sales (internet and reseller sales with product, customer, reseller, territory, currency and calendar)."
 version: 1.7
 aggressive_agg_promotion: false
 build_speculative_aggs: false
@@ -18,12 +18,12 @@ ai_context:
       root and covers every model directory beneath it. unique_name and label uniqueness is repo-wide
       and NOT per directory, so a new model's objects need names that do not collide with any other
       model's - prefix or qualify them (Snapshot Year, not Year). The model's unique_name must not
-      equal the catalog's unique_name (__CATALOG_NAME__).
+      equal the catalog's unique_name (coco_atscale_demo).
   - source_type: warehouse
-    source: AtScale connection "__CONNECTION_ID__" (database __DATABASE__, schema __SCHEMA__)
+    source: AtScale connection "Snowflake" (database atscale_tutorial_data, schema adventureworks2012)
     instruction: >-
       The ONLY data source for this model. Declare one SML connection with as_connection:
-      __CONNECTION_ID__, database __DATABASE__, schema __SCHEMA__. Do not point the model at any other
+      Snowflake, database atscale_tutorial_data, schema adventureworks2012. Do not point the model at any other
       connection. Discover the tables, columns, keys, JSON fields and sample values yourself with the
       AtScale MCP explore_datasource tool (list tables, then column details and sample data) and any
       native column comments. A derived (sql:) dataset is not
@@ -34,7 +34,7 @@ ai_context:
       is a number. Text-typed numbers (currency, "6 events", "12.5%") need a safe cast, for example
       substring(replace(x, ',', '') from '-?[0-9]+\.?[0-9]*')::float8 on Postgres.
   - source_type: catalog
-    source: Snowflake Horizon Catalog (database __DATABASE__, schema __SCHEMA__)
+    source: Snowflake Horizon Catalog (database atscale_tutorial_data, schema adventureworks2012)
     instruction: >-
       Use Horizon table and column descriptions, tags, and ownership as the
       source for model descriptions and business meaning. Where Horizon and

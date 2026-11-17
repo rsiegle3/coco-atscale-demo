@@ -1,0 +1,10 @@
+unique_name: Internet Freight
+object_type: metric
+label: Internet Freight
+description: "Internet shipping or freight charge on internet orders; excluded from Internet Sales Amount."
+dataset: Internet Sales Lines
+column: freight
+calculation_method: sum
+ai_context:
+- source_type: catalog
+  source: horizon:atscale_tutorial_data.adventureworks2012.factinternetsales.freight

@@ -1,0 +1,214 @@
+unique_name: AdventureWorks Sales
+object_type: model
+label: AdventureWorks Sales
+description: "AdventureWorks bicycle company sales, July 2005 to July 2008 orders, across two channels: Internet (direct online\
+  \ customers) and Reseller (bike shops and stores). Revenue, units, cost, gross profit, margin and order value by product,\
+  \ customer, reseller, sales territory, currency and order, ship or due date."
+ai_context:
+- source_type: warehouse
+  source: AtScale connection Snowflake (database atscale_tutorial_data, schema adventureworks2012)
+- source_type: catalog
+  source: Snowflake Horizon Catalog (database atscale_tutorial_data, schema adventureworks2012)
+  notes:
+  - Descriptions draw on Horizon table and column comments, harvested from information_schema on 2026-11-17.
+  - 'Horizon vs warehouse disagreements (flagged, not resolved): factinternetsales.duedate is described as ''the due date
+    of the payment'' but in AdventureWorks it is the order due date; datecustom.month_of_year_name and day_of_week_name are
+    described as names but store ''Month 7'' and ''Day 6''; datecustom.year/quarter/month are described as year or month ''format''
+    but hold start-of-period timestamps; datecustom.half_year_of_year is described as a date but holds 1 or 2.'
+- notes:
+  - One combined model with two facts, Internet Sales Lines (60398 lines, 27659 orders) and Reseller Sales Lines (60855 lines,
+    3796 orders), measured on 2026-11-17. Both share Product, Sales Calendar (Order, Ship, Due roles), Sales Territory and
+    Currency. Customer applies to internet only; Reseller applies to reseller only.
+  - All amounts are in the transaction currency; no currency conversion is applied (factcurrencyrate not modeled), so cross-currency
+    totals mix currencies.
+  - 'Not modeled: factfinance with dimaccount, dimorganization, dimdepartmentgroup, dimscenario (general-ledger finance, a
+    separate subject area); factcurrencyrate (exchange rates); factsalesquota (employee quotas, no employee table in the schema);
+    factinternetsalesreason with dimsalesreason (many-to-many sales reasons, left for a later iteration).'
+  - 'Not modeled as dimensions: promotionkey and employeekey (no promotion or employee table exists), revisionnumber, carriertrackingnumber,
+    customerponumber (low analytic value). unitprice, productstandardcost and unitpricediscountpct are kept in the datasets
+    but not published as measures because summing per-unit values is meaningless.'
+  - No orphan foreign keys in either fact for date, product, territory, currency, customer or reseller (checked 2026-11-17).
+  - Built by an LLM agent (Cortex Code with the AtScale MCP) from the warehouse only.
+- role: check
+  max_orphans:
+    Internet Sales Lines.productkey: 0
+    Internet Sales Lines.customerkey: 0
+    Reseller Sales Lines.productkey: 0
+    Reseller Sales Lines.resellerkey: 0
+relationships:
+- unique_name: Internet Sales Order Date
+  from:
+    dataset: Internet Sales Lines
+    join_columns:
+    - orderdatekey
+  to:
+    dimension: Sales Calendar
+    level: Calendar Date
+  role_play: Order {0}
+- unique_name: Internet Sales Ship Date
+  from:
+    dataset: Internet Sales Lines
+    join_columns:
+    - shipdatekey
+  to:
+    dimension: Sales Calendar
+    level: Calendar Date
+  role_play: Ship {0}
+- unique_name: Internet Sales Due Date
+  from:
+    dataset: Internet Sales Lines
+    join_columns:
+    - duedatekey
+  to:
+    dimension: Sales Calendar
+    level: Calendar Date
+  role_play: Due {0}
+- unique_name: Internet Sales Product
+  from:
+    dataset: Internet Sales Lines
+    join_columns:
+    - productkey
+  to:
+    dimension: Product
+    level: Product Name
+- unique_name: Internet Sales Sales Territory
+  from:
+    dataset: Internet Sales Lines
+    join_columns:
+    - salesterritorykey
+  to:
+    dimension: Sales Territory
+    level: Sales Territory Region
+- unique_name: Internet Sales Currency
+  from:
+    dataset: Internet Sales Lines
+    join_columns:
+    - currencykey
+  to:
+    dimension: Currency
+    level: Currency Name
+- unique_name: Reseller Sales Order Date
+  from:
+    dataset: Reseller Sales Lines
+    join_columns:
+    - orderdatekey
+  to:
+    dimension: Sales Calendar
+    level: Calendar Date
+  role_play: Order {0}
+- unique_name: Reseller Sales Ship Date
+  from:
+    dataset: Reseller Sales Lines
+    join_columns:
+    - shipdatekey
+  to:
+    dimension: Sales Calendar
+    level: Calendar Date
+  role_play: Ship {0}
+- unique_name: Reseller Sales Due Date
+  from:
+    dataset: Reseller Sales Lines
+    join_columns:
+    - duedatekey
+  to:
+    dimension: Sales Calendar
+    level: Calendar Date
+  role_play: Due {0}
+- unique_name: Reseller Sales Product
+  from:
+    dataset: Reseller Sales Lines
+    join_columns:
+    - productkey
+  to:
+    dimension: Product
+    level: Product Name
+- unique_name: Reseller Sales Sales Territory
+  from:
+    dataset: Reseller Sales Lines
+    join_columns:
+    - salesterritorykey
+  to:
+    dimension: Sales Territory
+    level: Sales Territory Region
+- unique_name: Reseller Sales Currency
+  from:
+    dataset: Reseller Sales Lines
+    join_columns:
+    - currencykey
+  to:
+    dimension: Currency
+    level: Currency Name
+- unique_name: Internet Sales Customer
+  from:
+    dataset: Internet Sales Lines
+    join_columns:
+    - customerkey
+  to:
+    dimension: Customer
+    level: Customer Name
+- unique_name: Reseller Sales Reseller
+  from:
+    dataset: Reseller Sales Lines
+    join_columns:
+    - resellerkey
+  to:
+    dimension: Reseller
+    level: Reseller Name
+dimensions:
+- Internet Sales Order
+- Reseller Sales Order
+metrics:
+- unique_name: Internet Sales Amount
+  folder: Internet Sales
+- unique_name: Internet Order Quantity
+  folder: Internet Sales
+- unique_name: Internet Extended Amount
+  folder: Internet Sales
+- unique_name: Internet Discount Amount
+  folder: Internet Sales
+- unique_name: Internet Total Product Cost
+  folder: Internet Sales
+- unique_name: Internet Tax Amount
+  folder: Internet Sales
+- unique_name: Internet Freight
+  folder: Internet Sales
+- unique_name: Internet Order Count
+  folder: Internet Sales
+- unique_name: Internet Order Line Count
+  folder: Internet Sales
+- unique_name: Reseller Sales Amount
+  folder: Reseller Sales
+- unique_name: Reseller Order Quantity
+  folder: Reseller Sales
+- unique_name: Reseller Extended Amount
+  folder: Reseller Sales
+- unique_name: Reseller Discount Amount
+  folder: Reseller Sales
+- unique_name: Reseller Total Product Cost
+  folder: Reseller Sales
+- unique_name: Reseller Tax Amount
+  folder: Reseller Sales
+- unique_name: Reseller Freight
+  folder: Reseller Sales
+- unique_name: Reseller Order Count
+  folder: Reseller Sales
+- unique_name: Reseller Order Line Count
+  folder: Reseller Sales
+- unique_name: Total Sales Amount
+  folder: Combined Sales
+- unique_name: Total Order Quantity
+  folder: Combined Sales
+- unique_name: Total Gross Profit
+  folder: Combined Sales
+- unique_name: Internet Gross Profit
+  folder: Profitability
+- unique_name: Reseller Gross Profit
+  folder: Profitability
+- unique_name: Internet Gross Margin Pct
+  folder: Profitability
+- unique_name: Reseller Gross Margin Pct
+  folder: Profitability
+- unique_name: Internet Average Order Value
+  folder: Order Value
+- unique_name: Reseller Average Order Value
+  folder: Order Value

@@ -1,0 +1,7 @@
+unique_name: Internet Average Order Value
+object_type: metric_calc
+label: Internet Average Order Value
+description: "Internet average order value, AOV or basket size: Internet Sales Amount divided by Internet Order Count; unlike\
+  \ Reseller Average Order Value."
+expression: IIF([Measures].[Internet Order Count] = 0, NULL, [Measures].[Internet Sales Amount] / [Measures].[Internet Order
+  Count])

@@ -1,0 +1,7 @@
+unique_name: Internet Gross Margin Pct
+object_type: metric_calc
+label: Internet Gross Margin Pct
+description: "Internet gross margin percent: Internet Gross Profit divided by Internet Sales Amount, as a fraction; ratio\
+  \ of totals, not an average of line margins."
+expression: IIF([Measures].[Internet Sales Amount] = 0, NULL, [Measures].[Internet Gross Profit] / [Measures].[Internet Sales
+  Amount])

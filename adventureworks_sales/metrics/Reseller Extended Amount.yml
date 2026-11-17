@@ -1,0 +1,11 @@
+unique_name: Reseller Extended Amount
+object_type: metric
+label: Reseller Extended Amount
+description: "Reseller gross amount before discount, unit price times quantity; unlike Reseller Sales Amount which is after\
+  \ discount."
+dataset: Reseller Sales Lines
+column: extendedamount
+calculation_method: sum
+ai_context:
+- source_type: catalog
+  source: horizon:atscale_tutorial_data.adventureworks2012.factresellersales.extendedamount

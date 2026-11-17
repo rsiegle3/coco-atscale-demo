@@ -1,0 +1,10 @@
+unique_name: Reseller Discount Amount
+object_type: metric
+label: Reseller Discount Amount
+description: "Reseller discount given off the extended amount on reseller order lines."
+dataset: Reseller Sales Lines
+column: discountamount
+calculation_method: sum
+ai_context:
+- source_type: catalog
+  source: horizon:atscale_tutorial_data.adventureworks2012.factresellersales.discountamount

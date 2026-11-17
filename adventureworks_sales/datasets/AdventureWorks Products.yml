@@ -1,0 +1,81 @@
+unique_name: AdventureWorks Products
+object_type: dataset
+label: AdventureWorks Products
+description: "Products flattened with subcategory and category, one row per product key; 606 products."
+connection_id: AdventureWorks Snowflake Connection
+sql: SELECT p."productkey", p."productalternatekey", p."englishproductname", COALESCE(p."color", 'Unknown') AS "color", COALESCE(p."size",
+  'Unknown') AS "size", COALESCE(p."sizerange", 'Unknown') AS "sizerange", COALESCE(TRIM(p."productline"), 'Unknown') AS "productline",
+  COALESCE(TRIM(p."class"), 'Unknown') AS "class", COALESCE(TRIM(p."style"), 'Unknown') AS "style", COALESCE(p."modelname",
+  'Unknown') AS "modelname", COALESCE(p."status", 'Not Current') AS "status", p."listprice", p."dealerprice", p."standardcost",
+  p."finishedgoodsflag", p."daystomanufacture", p."startdate", p."enddate", COALESCE(s."productsubcategorykey", -1) AS "productsubcategorykey",
+  COALESCE(s."englishproductsubcategoryname", 'No Subcategory') AS "subcategoryname", COALESCE(c."productcategorykey", -1)
+  AS "productcategorykey", COALESCE(c."englishproductcategoryname", 'No Category') AS "categoryname" FROM "adventureworks2012"."dimproduct"
+  p LEFT JOIN "adventureworks2012"."dimproductsubcategory" s ON p."productsubcategorykey" = s."productsubcategorykey" LEFT
+  JOIN "adventureworks2012"."dimproductcategory" c ON s."productcategorykey" = c."productcategorykey"
+columns:
+- name: productkey
+  data_type: long
+- name: productalternatekey
+  data_type: string
+- name: englishproductname
+  data_type: string
+- name: color
+  data_type: string
+- name: size
+  data_type: string
+- name: sizerange
+  data_type: string
+- name: productline
+  data_type: string
+- name: class
+  data_type: string
+- name: style
+  data_type: string
+- name: modelname
+  data_type: string
+- name: status
+  data_type: string
+- name: listprice
+  data_type: double
+- name: dealerprice
+  data_type: double
+- name: standardcost
+  data_type: double
+- name: finishedgoodsflag
+  data_type: boolean
+- name: daystomanufacture
+  data_type: long
+- name: startdate
+  data_type: datetime
+- name: enddate
+  data_type: datetime
+- name: productsubcategorykey
+  data_type: long
+- name: subcategoryname
+  data_type: string
+- name: productcategorykey
+  data_type: long
+- name: categoryname
+  data_type: string
+ai_context:
+- source_type: catalog
+  source: horizon:atscale_tutorial_data.adventureworks2012.dimproduct
+- source_type: catalog
+  source: horizon:atscale_tutorial_data.adventureworks2012.dimproductsubcategory
+- source_type: catalog
+  source: horizon:atscale_tutorial_data.adventureworks2012.dimproductcategory
+- role: check
+  unique:
+  - productkey
+  not_null:
+  - productkey
+  - englishproductname
+- role: pin
+  text: "{n} products"
+  sql: SELECT count(*) FROM "adventureworks2012"."dimproduct"
+- notes:
+  - 209 products have no subcategory; they map to 'No Subcategory' / 'No Category'. None of them appear in either sales fact.
+  - 'Omitted: Spanish/French names, the nine language descriptions, largephoto, weight and unit codes, safetystocklevel, reorderpoint
+    (catalog content, not analysis attributes).'
+  - 'Product names are not unique (606 rows, 504 names: one name per price/version row), so the product level is keyed on
+    productkey.'

@@ -1,0 +1,219 @@
+unique_name: Product
+object_type: dimension
+label: Product
+type: standard
+description: "Products sold online and to resellers: Bikes, Components, Clothing, Accessories."
+level_attributes:
+- unique_name: Product Category
+  label: Product Category
+  description: "Product category, top of the product hierarchy: Bikes, Components, Clothing, Accessories."
+  dataset: AdventureWorks Products
+  key_columns:
+  - productcategorykey
+  name_column: categoryname
+  ai_context:
+  - source_type: catalog
+    source: horizon:atscale_tutorial_data.adventureworks2012.dimproductcategory.englishproductcategoryname
+- unique_name: Product Subcategory
+  label: Product Subcategory
+  description: "Product subcategory such as Mountain Bikes, Road Bikes, Helmets; 37 subcategories under Product Category."
+  dataset: AdventureWorks Products
+  key_columns:
+  - productsubcategorykey
+  name_column: subcategoryname
+  ai_context:
+  - source_type: catalog
+    source: horizon:atscale_tutorial_data.adventureworks2012.dimproductsubcategory.englishproductsubcategoryname
+- unique_name: Product Name
+  label: Product Name
+  description: "Individual product (SKU version) by English product name, e.g. Mountain-200 Black, 38; a name can repeat across\
+    \ price versions."
+  dataset: AdventureWorks Products
+  key_columns:
+  - productkey
+  name_column: englishproductname
+  is_unique_key: true
+  ai_context:
+  - source_type: catalog
+    source: horizon:atscale_tutorial_data.adventureworks2012.dimproduct.englishproductname
+hierarchies:
+- unique_name: Product Hierarchy
+  label: Product Hierarchy
+  filter_empty: 'yes'
+  folder: Product
+  levels:
+  - unique_name: Product Category
+  - unique_name: Product Subcategory
+  - unique_name: Product Name
+    secondary_attributes:
+    - unique_name: Product Number
+      label: Product Number
+      description: "Product number / alternate key such as BK-M68B-38; shared by price versions of the same item."
+      dataset: AdventureWorks Products
+      name_column: productalternatekey
+      key_columns:
+      - productalternatekey
+      ai_context:
+      - source_type: catalog
+        source: horizon:atscale_tutorial_data.adventureworks2012.dimproduct.productalternatekey
+    - unique_name: Product Model
+      label: Product Model
+      description: "Product model name such as Mountain-200, grouping sizes and colors of one design."
+      dataset: AdventureWorks Products
+      name_column: modelname
+      key_columns:
+      - modelname
+      ai_context:
+      - source_type: catalog
+        source: horizon:atscale_tutorial_data.adventureworks2012.dimproduct.modelname
+    - unique_name: Product Color
+      label: Product Color
+      description: "Product color such as Black, Red, Silver; Unknown when not recorded."
+      dataset: AdventureWorks Products
+      name_column: color
+      key_columns:
+      - color
+      ai_context:
+      - source_type: catalog
+        source: horizon:atscale_tutorial_data.adventureworks2012.dimproduct.color
+    - unique_name: Product Size
+      label: Product Size
+      description: "Product size code such as 38, 44, M, L; Unknown when not recorded."
+      dataset: AdventureWorks Products
+      name_column: size
+      key_columns:
+      - size
+      ai_context:
+      - source_type: catalog
+        source: horizon:atscale_tutorial_data.adventureworks2012.dimproduct.size
+    - unique_name: Product Size Range
+      label: Product Size Range
+      description: "Product size range bucket such as 38-40 CM."
+      dataset: AdventureWorks Products
+      name_column: sizerange
+      key_columns:
+      - sizerange
+      ai_context:
+      - source_type: catalog
+        source: horizon:atscale_tutorial_data.adventureworks2012.dimproduct.sizerange
+    - unique_name: Product Line
+      label: Product Line
+      description: "Product line code R road, M mountain, T touring, S standard; the product's own line, unlike Reseller Product\
+        \ Line."
+      dataset: AdventureWorks Products
+      name_column: productline
+      key_columns:
+      - productline
+      ai_context:
+      - source_type: catalog
+        source: horizon:atscale_tutorial_data.adventureworks2012.dimproduct.productline
+    - unique_name: Product Class
+      label: Product Class
+      description: "Product class code H high, M medium, L low."
+      dataset: AdventureWorks Products
+      name_column: class
+      key_columns:
+      - class
+      ai_context:
+      - source_type: catalog
+        source: horizon:atscale_tutorial_data.adventureworks2012.dimproduct.class
+    - unique_name: Product Style
+      label: Product Style
+      description: "Product style code W womens, M mens, U universal."
+      dataset: AdventureWorks Products
+      name_column: style
+      key_columns:
+      - style
+      ai_context:
+      - source_type: catalog
+        source: horizon:atscale_tutorial_data.adventureworks2012.dimproduct.style
+    - unique_name: Product Status
+      label: Product Status
+      description: "Product status: Current for the active price version, Not Current otherwise."
+      dataset: AdventureWorks Products
+      name_column: status
+      key_columns:
+      - status
+      ai_context:
+      - source_type: catalog
+        source: horizon:atscale_tutorial_data.adventureworks2012.dimproduct.status
+    - unique_name: Product Finished Goods Flag
+      label: Product Finished Goods Flag
+      description: "True when the product is a finished good that is sold, false for parts."
+      dataset: AdventureWorks Products
+      name_column: finishedgoodsflag
+      key_columns:
+      - finishedgoodsflag
+      ai_context:
+      - source_type: catalog
+        source: horizon:atscale_tutorial_data.adventureworks2012.dimproduct.finishedgoodsflag
+    - unique_name: Product List Price
+      label: Product List Price
+      description: "Catalog list price of the product version; attribute value, not a sales measure."
+      dataset: AdventureWorks Products
+      name_column: listprice
+      key_columns:
+      - listprice
+      ai_context:
+      - source_type: catalog
+        source: horizon:atscale_tutorial_data.adventureworks2012.dimproduct.listprice
+    - unique_name: Product Dealer Price
+      label: Product Dealer Price
+      description: "Dealer price offered to resellers for the product version; attribute value, not a sales measure."
+      dataset: AdventureWorks Products
+      name_column: dealerprice
+      key_columns:
+      - dealerprice
+      ai_context:
+      - source_type: catalog
+        source: horizon:atscale_tutorial_data.adventureworks2012.dimproduct.dealerprice
+    - unique_name: Product Standard Cost Attribute
+      label: Product Standard Cost Attribute
+      description: "Standard cost of the product version from the product table; unlike the Total Product Cost measures on\
+        \ sales."
+      dataset: AdventureWorks Products
+      name_column: standardcost
+      key_columns:
+      - standardcost
+      ai_context:
+      - source_type: catalog
+        source: horizon:atscale_tutorial_data.adventureworks2012.dimproduct.standardcost
+    - unique_name: Product Days To Manufacture
+      label: Product Days To Manufacture
+      description: "Number of days needed to manufacture the product."
+      dataset: AdventureWorks Products
+      name_column: daystomanufacture
+      key_columns:
+      - daystomanufacture
+      ai_context:
+      - source_type: catalog
+        source: horizon:atscale_tutorial_data.adventureworks2012.dimproduct.daystomanufacture
+    - unique_name: Product Start Date
+      label: Product Start Date
+      description: "Date the product price version became effective."
+      dataset: AdventureWorks Products
+      name_column: startdate
+      key_columns:
+      - startdate
+      ai_context:
+      - source_type: catalog
+        source: horizon:atscale_tutorial_data.adventureworks2012.dimproduct.startdate
+    - unique_name: Product End Date
+      label: Product End Date
+      description: "Date the product price version ended; empty for the current version."
+      dataset: AdventureWorks Products
+      name_column: enddate
+      key_columns:
+      - enddate
+      ai_context:
+      - source_type: catalog
+        source: horizon:atscale_tutorial_data.adventureworks2012.dimproduct.enddate
+ai_context:
+- source_type: catalog
+  source: horizon:atscale_tutorial_data.adventureworks2012.dimproduct
+- source_type: catalog
+  source: horizon:atscale_tutorial_data.adventureworks2012.dimproductsubcategory
+- source_type: catalog
+  source: horizon:atscale_tutorial_data.adventureworks2012.dimproductcategory
+- notes:
+  - Snowflaked product, subcategory and category flattened in the AdventureWorks Products dataset so one hierarchy spans them.

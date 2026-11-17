@@ -1,0 +1,49 @@
+unique_name: Sales Territory
+object_type: dimension
+label: Sales Territory
+type: standard
+description: "Sales territory recorded on each sale: Group, Country, Region; shared by internet and reseller sales."
+level_attributes:
+- unique_name: Sales Territory Group
+  label: Sales Territory Group
+  description: "Sales territory group: North America, Europe, Pacific (plus NA placeholder)."
+  dataset: AdventureWorks Sales Territories
+  key_columns:
+  - salesterritorygroup
+  name_column: salesterritorygroup
+  ai_context:
+  - source_type: catalog
+    source: horizon:atscale_tutorial_data.adventureworks2012.dimsalesterritory.salesterritorygroup
+- unique_name: Sales Territory Country
+  label: Sales Territory Country
+  description: "Country of the sales territory on the sale; unlike Customer Country or Reseller Country, which are addresses."
+  dataset: AdventureWorks Sales Territories
+  key_columns:
+  - salesterritorycountry
+  name_column: salesterritorycountry
+  ai_context:
+  - source_type: catalog
+    source: horizon:atscale_tutorial_data.adventureworks2012.dimsalesterritory.salesterritorycountry
+- unique_name: Sales Territory Region
+  label: Sales Territory Region
+  description: "Sales territory region, e.g. Northwest, Southeast, Canada, France; US is split into five regions."
+  dataset: AdventureWorks Sales Territories
+  key_columns:
+  - salesterritorykey
+  name_column: salesterritoryregion
+  is_unique_key: true
+  ai_context:
+  - source_type: catalog
+    source: horizon:atscale_tutorial_data.adventureworks2012.dimsalesterritory.salesterritoryregion
+hierarchies:
+- unique_name: Sales Territory Hierarchy
+  label: Sales Territory Hierarchy
+  filter_empty: 'yes'
+  folder: Sales Territory
+  levels:
+  - unique_name: Sales Territory Group
+  - unique_name: Sales Territory Country
+  - unique_name: Sales Territory Region
+ai_context:
+- source_type: catalog
+  source: horizon:atscale_tutorial_data.adventureworks2012.dimsalesterritory

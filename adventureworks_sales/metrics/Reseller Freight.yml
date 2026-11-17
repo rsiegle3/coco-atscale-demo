@@ -1,0 +1,10 @@
+unique_name: Reseller Freight
+object_type: metric
+label: Reseller Freight
+description: "Reseller shipping or freight charge on reseller orders; excluded from Reseller Sales Amount."
+dataset: Reseller Sales Lines
+column: freight
+calculation_method: sum
+ai_context:
+- source_type: catalog
+  source: horizon:atscale_tutorial_data.adventureworks2012.factresellersales.freight

@@ -1,0 +1,6 @@
+unique_name: Internet Gross Profit
+object_type: metric_calc
+label: Internet Gross Profit
+description: "Internet gross profit, margin dollars: Internet Sales Amount minus Internet Total Product Cost; unlike Reseller\
+  \ Gross Profit."
+expression: '[Measures].[Internet Sales Amount] - [Measures].[Internet Total Product Cost]'

@@ -1,0 +1,10 @@
+unique_name: Internet Order Quantity
+object_type: metric
+label: Internet Order Quantity
+description: "Internet units sold, number of product units on internet order lines; unlike Reseller Order Quantity."
+dataset: Internet Sales Lines
+column: orderquantity
+calculation_method: sum
+ai_context:
+- source_type: catalog
+  source: horizon:atscale_tutorial_data.adventureworks2012.factinternetsales.orderquantity

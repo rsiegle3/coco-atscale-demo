@@ -1,0 +1,5 @@
+unique_name: Total Gross Profit
+object_type: metric_calc
+label: Total Gross Profit
+description: "Total gross profit across both channels, Internet Gross Profit plus Reseller Gross Profit."
+expression: '[Measures].[Internet Gross Profit] + [Measures].[Reseller Gross Profit]'

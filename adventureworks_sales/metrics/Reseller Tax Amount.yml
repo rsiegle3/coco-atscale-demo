@@ -1,0 +1,10 @@
+unique_name: Reseller Tax Amount
+object_type: metric
+label: Reseller Tax Amount
+description: "Reseller sales tax charged on reseller orders; excluded from Reseller Sales Amount."
+dataset: Reseller Sales Lines
+column: taxamt
+calculation_method: sum
+ai_context:
+- source_type: catalog
+  source: horizon:atscale_tutorial_data.adventureworks2012.factresellersales.taxamt

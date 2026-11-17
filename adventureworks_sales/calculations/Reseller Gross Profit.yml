@@ -1,0 +1,6 @@
+unique_name: Reseller Gross Profit
+object_type: metric_calc
+label: Reseller Gross Profit
+description: "Reseller gross profit, margin dollars: Reseller Sales Amount minus Reseller Total Product Cost; unlike Internet\
+  \ Gross Profit."
+expression: '[Measures].[Reseller Sales Amount] - [Measures].[Reseller Total Product Cost]'

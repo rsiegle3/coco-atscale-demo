@@ -1,0 +1,7 @@
+unique_name: Reseller Order Line Count
+object_type: metric
+label: Reseller Order Line Count
+description: "Number of reseller sales order lines, one per product on an order; unlike Reseller Order Count."
+dataset: Reseller Sales Lines
+column: row_count
+calculation_method: sum

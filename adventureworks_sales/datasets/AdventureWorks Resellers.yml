@@ -1,0 +1,67 @@
+unique_name: AdventureWorks Resellers
+object_type: dataset
+label: AdventureWorks Resellers
+description: "Reseller businesses joined to their geography, one row per reseller key; 714 resellers."
+connection_id: AdventureWorks Snowflake Connection
+sql: SELECT x."resellerkey", x."reselleralternatekey", x."resellername", x."businesstype", x."numberemployees", COALESCE(x."orderfrequency",
+  'Unknown') AS "orderfrequency", x."firstorderyear", x."lastorderyear", COALESCE(x."productline", 'Unknown') AS "productline",
+  x."annualsales", x."annualrevenue", x."yearopened", x."bankname", g."city", g."stateprovincecode", g."stateprovincename",
+  g."countryregioncode", g."englishcountryregionname", g."postalcode" FROM "adventureworks2012"."dimreseller" x JOIN "adventureworks2012"."dimgeography"
+  g ON x."geographykey" = g."geographykey"
+columns:
+- name: resellerkey
+  data_type: long
+- name: reselleralternatekey
+  data_type: string
+- name: resellername
+  data_type: string
+- name: businesstype
+  data_type: string
+- name: numberemployees
+  data_type: long
+- name: orderfrequency
+  data_type: string
+- name: firstorderyear
+  data_type: long
+- name: lastorderyear
+  data_type: long
+- name: productline
+  data_type: string
+- name: annualsales
+  data_type: double
+- name: annualrevenue
+  data_type: double
+- name: yearopened
+  data_type: long
+- name: bankname
+  data_type: string
+- name: city
+  data_type: string
+- name: stateprovincecode
+  data_type: string
+- name: stateprovincename
+  data_type: string
+- name: countryregioncode
+  data_type: string
+- name: englishcountryregionname
+  data_type: string
+- name: postalcode
+  data_type: string
+ai_context:
+- source_type: catalog
+  source: horizon:atscale_tutorial_data.adventureworks2012.dimreseller
+- source_type: catalog
+  source: horizon:atscale_tutorial_data.adventureworks2012.dimgeography
+- role: check
+  unique:
+  - resellerkey
+  not_null:
+  - resellerkey
+  - resellername
+  - city
+- role: pin
+  text: "{n} resellers"
+  sql: SELECT count(*) FROM "adventureworks2012"."dimreseller"
+- notes:
+  - 'Omitted: phone, address lines, ordermonth, minpaymenttype, minpaymentamount.'
+  - Reseller names are not unique (714 rows, 699 names), so the reseller level is keyed on resellerkey.

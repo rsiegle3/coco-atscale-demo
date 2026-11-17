@@ -1,0 +1,6 @@
+unique_name: Total Order Quantity
+object_type: metric_calc
+label: Total Order Quantity
+description: "Total units sold across both channels, Internet Order Quantity plus Reseller Order Quantity."
+expression: IIF(ISEMPTY([Measures].[Internet Order Quantity]), 0, [Measures].[Internet Order Quantity]) + IIF(ISEMPTY([Measures].[Reseller
+  Order Quantity]), 0, [Measures].[Reseller Order Quantity])

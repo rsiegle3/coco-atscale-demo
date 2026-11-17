@@ -1,0 +1,24 @@
+unique_name: Reseller Sales Order
+object_type: dimension
+label: Reseller Sales Order
+type: standard
+is_degenerate: true
+description: "Reseller sales order number such as SO43659; one order has one or more lines; reseller orders only."
+level_attributes:
+- unique_name: Reseller Sales Order Number
+  label: Reseller Sales Order Number
+  description: "Reseller sales order number such as SO43659; one order has one or more lines; reseller orders only."
+  dataset: Reseller Sales Lines
+  key_columns:
+  - salesordernumber
+  name_column: salesordernumber
+  ai_context:
+  - source_type: catalog
+    source: horizon:atscale_tutorial_data.adventureworks2012.factresellersales.salesordernumber
+hierarchies:
+- unique_name: Reseller Sales Order Hierarchy
+  label: Reseller Sales Order Hierarchy
+  filter_empty: 'yes'
+  folder: Sales Orders
+  levels:
+  - unique_name: Reseller Sales Order Number
